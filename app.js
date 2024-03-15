@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // Serve HTML form
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/form.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // Handle form submission
