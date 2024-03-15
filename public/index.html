@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+<style>
+  /* Add your CSS styles here */
+</style>
+</head>
+<body>
+  <h1>Contact Form</h1>
+  <form id="contactForm">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      // Get form data
+      const formData = new FormData(this);
+      const formDataJSON = {};
+      formData.forEach((value, key) => {
+        formDataJSON[key] = value;
+      });
+
+      // Send form data to server
+      try {
+        const response = await fetch('/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formDataJSON)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to submit form');
+        }
+
+        alert('Form submitted successfully!');
+        // Optionally reset the form fields
+        // this.reset();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to submit form. Please try again later.');
+      }
+    });
+  </script>
+</body>
+</html>
